@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ALEXION MASTER ENCYCLOPEDIA - MR Specialist Edition</title>
+  <title>ALEXION MASTER ENCYCLOPEDIA</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -12,20 +12,16 @@
     .custom-scrollbar::-webkit-scrollbar { width: 6px; }
     .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
-    .glass-card { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(51, 65, 85, 0.6); }
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 flex flex-col h-screen overflow-hidden">
 
   <!-- ヘッダー -->
-  <header class="bg-slate-900/90 border-b border-slate-800 px-4 py-3 flex items-center justify-between shrink-0">
+  <header class="bg-slate-900 border-b border-slate-800 px-4 py-3 flex items-center justify-between shrink-0">
     <div class="flex items-center space-x-3">
-      <div class="w-8 h-8 rounded bg-gradient-to-tr from-indigo-600 to-cyan-500 flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/20">A</div>
+      <div class="w-8 h-8 rounded bg-indigo-600 flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/30">A</div>
       <div>
-        <h1 class="text-sm font-bold tracking-wider text-slate-100 uppercase flex items-center gap-2">
-          <span>ALEXION MASTER ENCYCLOPEDIA</span>
-          <span class="bg-indigo-950 text-indigo-300 text-[10px] px-2 py-0.5 rounded border border-indigo-800">12 Units Master</span>
-        </h1>
+        <h1 class="text-sm font-bold tracking-wider text-slate-100 uppercase">ALEXION MASTER ENCYCLOPEDIA</h1>
         <p class="text-xs text-slate-400">Visual & AI Edition (Gemini 3.7 Flash Powered)</p>
       </div>
     </div>
@@ -41,55 +37,66 @@
     </div>
   </header>
 
-  <!-- メインレイアウト -->
+  <!-- メインコンテンツ -->
   <div class="flex flex-1 overflow-hidden relative">
     
-    <!-- 左サイドバー（12 Units シラバス） -->
+    <!-- 左サイドバー（シラバス） -->
     <nav class="w-80 bg-slate-900/60 border-r border-slate-800 flex flex-col shrink-0 custom-scrollbar overflow-y-auto hidden md:flex">
-      <div class="p-3 border-b border-slate-800/80 bg-slate-900/40">
-        <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">講義シラバス（4領域・全12Units）</span>
+      <div class="p-4 border-b border-slate-800/80">
+        <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">講義シラバス（4大領域）</span>
       </div>
-      <div class="p-2 space-y-3" id="unit-menu-container">
-        <!-- JSで12Unitsを自動生成 -->
+      <div class="p-3 space-y-1" id="unit-list">
+        <button onclick="selectUnit(1)" class="w-full text-left p-3 rounded-lg bg-indigo-600/20 border border-indigo-500/30 text-indigo-200 text-xs flex items-center justify-between">
+          <span>Unit 1: aHUS病態と補体制御不全</span>
+          <i class="fa-solid fa-chevron-right text-xs"></i>
+        </button>
+        <button onclick="selectUnit(2)" class="w-full text-left p-3 rounded-lg hover:bg-slate-800 text-slate-300 text-xs flex items-center justify-between">
+          <span>Unit 2: IgA腎症の最新病態と治療介入</span>
+          <i class="fa-solid fa-chevron-right text-xs"></i>
+        </button>
+        <button onclick="selectUnit(3)" class="w-full text-left p-3 rounded-lg hover:bg-slate-800 text-slate-300 text-xs flex items-center justify-between">
+          <span>Unit 3: 診断アルゴリズムと鑑別診断</span>
+          <i class="fa-solid fa-chevron-right text-xs"></i>
+        </button>
+        <button onclick="selectUnit(4)" class="w-full text-left p-3 rounded-lg hover:bg-slate-800 text-slate-300 text-xs flex items-center justify-between">
+          <span>Unit 4: KOL・専門医との学術ディベート戦術</span>
+          <i class="fa-solid fa-chevron-right text-xs"></i>
+        </button>
       </div>
     </nav>
 
     <!-- 中央メイン画面 -->
     <main class="flex-1 custom-scrollbar overflow-y-auto p-4 md:p-6 space-y-6">
-      
-      <!-- モバイル用ユニット切り替えセレクタ -->
-      <div class="md:hidden bg-slate-900 p-3 rounded-lg border border-slate-800 flex items-center justify-between">
-        <span class="text-xs text-slate-400 font-semibold">Unit 選択:</span>
-        <select id="mobile-unit-select" onchange="selectUnit(parseInt(this.value))" class="bg-slate-950 text-indigo-300 text-xs rounded px-2 py-1.5 border border-slate-700 focus:outline-none focus:border-indigo-500">
-          <!-- JSで自動生成 -->
-        </select>
-      </div>
-
-      <!-- メインコンテンツカード -->
-      <div class="glass-card rounded-xl p-5 md:p-6 shadow-xl space-y-6" id="unit-content">
-        <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-4 gap-3">
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-sm" id="unit-content">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
           <div>
-            <div class="flex items-center gap-2">
-              <span class="text-xs font-bold text-indigo-400 uppercase tracking-widest px-2 py-0.5 bg-indigo-950/60 rounded border border-indigo-800/50" id="content-unit-badge">Unit 1-1</span>
-              <span class="text-xs text-slate-400 font-medium" id="content-category-badge">領域 I: 補体生物学・aHUS病態</span>
-            </div>
-            <h2 class="text-lg md:text-xl font-bold text-slate-100 mt-2" id="content-unit-title">補体副経路の恒常的活性化と制御機構</h2>
+            <span class="text-xs font-bold text-indigo-400 uppercase tracking-widest" id="content-unit-badge">Unit 1-1</span>
+            <h2 class="text-lg font-bold text-slate-100 mt-1" id="content-unit-title">aHUS病態とC5阻害薬の薬理学的機序</h2>
           </div>
-          <div class="flex items-center space-x-2">
-            <button onclick="openVisualModal()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-cyan-300 text-xs rounded border border-cyan-500/30 flex items-center space-x-1.5 transition">
-              <i class="fa-solid fa-diagram-project"></i>
-              <span>図解で見る</span>
-            </button>
-            <button onclick="askAboutCurrentUnit()" class="px-3 py-1.5 bg-indigo-950/80 hover:bg-indigo-900 text-indigo-200 text-xs rounded border border-indigo-500/30 flex items-center space-x-1.5 transition">
-              <i class="fa-solid fa-sparkles"></i>
-              <span>AI解説</span>
-            </button>
-          </div>
+          <button onclick="askAboutCurrentUnit()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-indigo-300 text-xs rounded border border-indigo-500/30 flex items-center space-x-1">
+            <i class="fa-solid fa-sparkles"></i>
+            <span>AI解説</span>
+          </button>
         </div>
         
-        <!-- 動的本文エリア -->
-        <div class="space-y-6 text-slate-300 text-xs md:text-sm leading-relaxed" id="content-unit-body">
-          <!-- JSで描画 -->
+        <div class="prose prose-invert max-w-none text-xs md:text-sm text-slate-300 space-y-4" id="content-unit-body">
+          <p class="leading-relaxed">aHUS（非典型溶血性尿毒症症候群）は、補体副経路の制御異常により補体が持続的に過剰活性化し、全身の微小血管内皮細胞障害および微小血栓形成を引き起こす進行性の生命危機的疾患です。</p>
+          
+          <div class="bg-slate-950 p-4 rounded-lg border border-slate-800 space-y-2">
+            <h4 class="font-bold text-indigo-300 flex items-center space-x-2">
+              <i class="fa-solid fa-diagram-project"></i>
+              <span>臨床概念ビジュアル図解：補体活性化カスケード</span>
+            </h4>
+            <div class="p-3 bg-slate-900 rounded border border-slate-800 text-xs text-slate-400 font-mono">
+              補体副経路の持続的活性化 → C3b増幅 → C5転換酵素形成 → C5開裂(C5a + C5b) → C5b-9(MAC)形成 → 内皮障害・微小血栓症(TMA)
+            </div>
+          </div>
+
+          <h4 class="font-bold text-slate-200 mt-4">KOL・専門医とのディベートにおける「論点と攻略戦術」</h4>
+          <ul class="list-disc pl-5 space-y-1.5 text-slate-300">
+            <li><strong>早期診断と治療介入の重要性：</strong> TMA所見（血小板減少、溶血性貧血、腎機能障害）確認後、速やかな鑑別とC5阻害の必要性。</li>
+            <li><strong>血漿交換（PE/PI）の限界：</strong> 補体因子の補充・一時的除去に留まり、根本的な補体過剰活性化カスケードを完全停止できない点。</li>
+          </ul>
         </div>
       </div>
     </main>
@@ -109,7 +116,7 @@
       <!-- チャット履歴 -->
       <div class="flex-1 p-4 overflow-y-auto space-y-4 custom-scrollbar text-xs" id="chat-messages">
         <div class="bg-indigo-950/40 border border-indigo-900/50 p-3 rounded-lg text-slate-300">
-          💡 <strong>臨床医学・薬理・反論処理なんでも質問できます（Gemini 3.7 Flash）</strong><br>
+          💡 <strong>臨床医学・薬理・反論処理なんでも質問できます</strong><br>
           「aHUSの再発モニタリングの具体的数値は？」「KDIGOの最新ガイドライン改訂点は？」「B細胞標的薬とC5阻害薬の併用ロジックは？」など、疑問を入力してください。
         </div>
       </div>
@@ -134,28 +141,9 @@
 
   </div>
 
-  <!-- 図解ポップアップモーダル -->
-  <div id="visual-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-    <div class="glass-card rounded-xl max-w-2xl w-full p-5 md:p-6 space-y-4 shadow-2xl">
-      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-        <h3 class="text-sm font-bold text-cyan-300 flex items-center space-x-2" id="visual-modal-title">
-          <i class="fa-solid fa-diagram-project"></i>
-          <span>臨床概念ビジュアル図解</span>
-        </h3>
-        <button onclick="closeVisualModal()" class="text-slate-400 hover:text-slate-200"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="p-4 bg-slate-950 rounded-lg border border-slate-800 text-xs md:text-sm font-mono text-cyan-200 leading-relaxed whitespace-pre-wrap" id="visual-modal-content">
-        <!-- JSで注入 -->
-      </div>
-      <div class="flex justify-end">
-        <button onclick="closeVisualModal()" class="px-4 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs rounded">閉じる</button>
-      </div>
-    </div>
-  </div>
-
   <!-- APIキー設定モーダル -->
   <div id="api-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-    <div class="glass-card rounded-xl max-w-md w-full p-5 space-y-4 shadow-2xl">
+    <div class="bg-slate-900 border border-slate-800 rounded-xl max-w-md w-full p-5 space-y-4 shadow-2xl">
       <div class="flex items-center justify-between border-b border-slate-800 pb-3">
         <h3 class="text-sm font-bold text-slate-100 flex items-center space-x-2">
           <i class="fa-solid fa-key text-indigo-400"></i>
@@ -163,7 +151,7 @@
         </h3>
         <button onclick="closeApiModal()" class="text-slate-400 hover:text-slate-200"><i class="fa-solid fa-xmark"></i></button>
       </div>
-      <p class="text-xs text-slate-400">Google AI Studioで取得したAPIキーを入力してください。キーは端末内のLocalStorageにのみ安全に保管されます。</p>
+      <p class="text-xs text-slate-400">Google AI Studioで取得したAPIキーを入力してください。キーは端末内のLocalStorageにのみ安全に保存されます。</p>
       <div>
         <label class="block text-xs font-semibold text-slate-300 mb-1">Gemini API Key</label>
         <input type="password" id="api-key-input" placeholder="AIzaSy..." class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 font-mono">
@@ -179,331 +167,13 @@
   </div>
 
   <script>
-    // 12 Units 全学術マスターデータ
-    const UNITS_DATA = [
-      // 領域 I: 補体生物学・aHUS病態
-      {
-        id: 1, category: "領域 I: 補体生物学・aHUS病態", badge: "Unit 1-1",
-        title: "補体副経路の恒常的活性化（Tick-over）と制御機構",
-        summary: "補体副経路は外来異物の有無に関わらず微小レベルで自発的加水分解（Tick-over）を継続。自己細胞上のCFH、CD46(MCP)、CD55、CD59による精密なブレーキが破綻すると自己組織障害へ直結する。",
-        visual: `【補体副経路カスケードとブレーキ破綻】\n\nC3自発的加水分解 [Tick-over] ──→ C3(H2O) ＋ Factor B ─(Factor D)─→ C3bBb (初期C3転換酵素)\n                                     │\n                                     ▼ [増幅ループ]\n                          大量の C3b 産生 ──→ 自己血管内皮に沈着\n                                     │\n                     ┌───────────────┴───────────────┐\n                     ▼                               ▼\n          【健常時: 制御因子が停止】       【aHUS: 遺伝子変異/抗体】\n          ・Factor H (血清中)              ・CFH, MCP, CFI変異 (60%)\n          ・MCP / CD46 (膜結合)           ・抗CFH抗体\n          ・CFI (切断不活化)                         │\n                     │                               ▼\n            補体活性化が停止                【補体過剰活性化の継続】\n                                                     │\n                                                     ▼\n                                            C5転換酵素の持続形成`,
-        points: [
-          "Tick-over現象：C3は常に1%程度が自発的に活性化し、病原体に備えている。",
-          "補体制御因子（CFH, MCP, CFI）の欠損や機能低下がaHUSの発症基盤となる。",
-          "増幅ループ（Amplification loop）：C3bBbが指数関数的にC3を切断し続ける。"
-        ],
-        debate: [
-          { q: "補体異常があるなら生まれた時から発症するのではないか？", a: "遺伝子変異は『素因』であり、感染・妊娠・外科手術などの補体増幅トリガー（Hit 2）が加わることで制御限界を超えて発症します（2-Hit Theory）。" }
-        ]
-      },
-      {
-        id: 2, category: "領域 I: 補体生物学・aHUS病態", badge: "Unit 1-2",
-        title: "末端補体複合体（MAC: C5b-9）による内皮細胞障害とTMA",
-        summary: "C5転換酵素によってC5はC5a（強力な炎症惹起アナフィラトキシン）とC5bに開裂。C5b-9（膜侵襲複合体: MAC）が微小血管内皮を穿孔・剥離させ、血小板血栓（TMA）を形成する。",
-        visual: `【MAC形成と微小血栓症（TMA）のメカニズム】\n\n   C5 ──(C5転換酵素)──→ [C5a: 強力な好中球遊走・内皮炎症]\n    │\n    └─→ C5b ＋ C6 ＋ C7 ＋ C8 ＋ 多量体C9\n         │\n         ▼\n    【C5b-9 (膜侵襲複合体: MAC)】\n         │\n         ▼ 血管内皮細胞膜への穿孔・傷害\n    ┌───────────────────────────────────────────┐\n    │  ① 内皮剥離・von Willebrand因子(VWF)放出 │\n    │  ② 血小板の異常凝集・消費 (血小板減少)    │\n    │  ③ 赤血球の物理的破砕 (溶血性貧血・破砕赤血球)│\n    │  ④ 糸球体毛細血管の閉塞 (急性腎障害)     │\n    └───────────────────────────────────────────┘`,
-        points: [
-          "C5aは好中球・単球を活性化し、血管内皮の炎症と透過性を亢進させる。",
-          "C5b-9による内皮障害が血小板血栓を誘発し、消費性血小板減少と破砕赤血球を伴う溶血性貧血を生じる。",
-          "腎臓の微小血管はシェアストレスが高く、MACによる障害を最も受けやすい。"
-        ],
-        debate: [
-          { q: "C3を止める薬とC5を止める薬、どちらが本質的か？", a: "生体防御（免疫複合体処理・オプソニン化）に必要な上流C3を残しつつ、組織破壊・血栓形成の直接原因である末端（C5a / C5b-9）を完全阻害することが最も合理的かつ安全です。" }
-        ]
-      },
-      {
-        id: 3, category: "領域 I: 補体生物学・aHUS病態", badge: "Unit 1-3",
-        title: "aHUSにおける遺伝子異常（CFH/CFI/MCP/C3/CFB）と予後",
-        summary: "aHUS患者の約50〜60%に補体関連遺伝子の病的バリアントを認める。CFH変異は予後不良で再発率が高く、MCP変異は腎移植後の再発リスクが比較的低いなど、変異部位による臨床像の違いを把握する。",
-        visual: `【補体遺伝子変異と臨床予後の相関】\n\n・CFH変異 (約25〜30%): 血清中蛋白。最も予後不良。透析導入・死亡率高く、移植後再発率70〜80%。\n・MCP/CD46変異 (約10〜15%): 膜結合蛋白。腎移植時、移植腎側の正常MCPにより再発率は比較的低い。\n・CFI変異 (約5〜10%): 血清中セリンプロテアーゼ。部分寛解と再発を繰り返しやすい。\n・C3 / CFB変異 (約5〜10%): 活性化因子の機能獲得型変異（GoF）。補体が暴走しやすい。`,
-        points: [
-          "遺伝子変異陰性であってもaHUSを否定できない（約40%は既知遺伝子変異陰性）。",
-          "抗CFH抗体（後天性）は小児〜若年層に多く、CFHR1-3欠失と高率に関連。",
-          "遺伝子解析結果を待たずに、TMA臨床所見で速やかにC5阻害薬を開始することが腎機能救済に必須。"
-        ],
-        debate: [
-          { q: "遺伝子検査の結果が出てから治療開始では遅いか？", a: "結果判明には数週間を要します。その間に不可逆的な腎硬化・ネフロン喪失が進行するため、臨床診断に基づき直ちに治療開始すべきです。" }
-        ]
-      },
-
-      // 領域 II: IgA腎症・最新病態
-      {
-        id: 4, category: "領域 II: IgA腎症・最新病態", badge: "Unit 2-1",
-        title: "IgA腎症の多段階発症機序（4-Hit Hypothesis）",
-        summary: "IgA腎症は単なる腎局所疾患ではなく自己免疫疾患。ガラクトース欠損IgA1（Gd-IgA1）産生から免疫複合体形成、メサンギウム沈着、補体活性化に至る4段階の機序を論理的に解説する。",
-        visual: `【IgA腎症の 4-Hit Model】\n\n[Hit 1] 粘膜免疫異常 ──→ ガラクトース欠損IgA1 (Gd-IgA1) の血中増加\n                                 │\n[Hit 2] 自己抗体産生 ──→ 抗Gd-IgA1 特異的自己抗体 (IgG / IgA) の出現\n                                 │\n[Hit 3] 免疫複合体形成 ──→ Gd-IgA1 ＋ 自己抗体 の高分子免疫複合体(CIC)形成\n                                 │\n[Hit 4] 糸球体沈着・障害 ──→ 免疫複合体がメサンギウム領域に沈着\n                                 │\n                                 ├─→ メサンギウム細胞増殖・基質拡大\n                                 └─→ 【補体副経路・レクチン経路の局所活性化】──→ 糸球体硬化・間質線維化`,
-        points: [
-          "Hit 1〜3が全身性の免疫異常、Hit 4が腎局所における炎症と不可逆的組織障害。",
-          "パイエル板や扁桃などの粘膜関連リンパ組織（MALT）の異常応答が起点。",
-          "メサンギウム細胞に沈着した免疫複合体が局所の補体を活性化し、進行性の腎不全をもたらす。"
-        ],
-        debate: [
-          { q: "従来のRAS阻害薬単剤で十分ではないか？", a: "RAS阻害薬は糸球体内圧を下げる血行動態的アプローチであり、Hit 1〜4の自己免疫反応や補体介在性の炎症破壊を直接停止させることはできません。" }
-        ]
-      },
-      {
-        id: 5, category: "領域 II: IgA腎症・最新病態", badge: "Unit 2-2",
-        title: "IgA腎症における補体活性化（副経路・レクチン経路）と進行リスク",
-        summary: "沈着したIgA1免疫複合体は補体副経路およびレクチン経路を活性化。C3沈着やC5b-9形成、尿中C5a/C5b-9排泄量は腎機能低下（eGFR低下速度）の強い予後予測因子となる。",
-        visual: `【IgA沈着から補体依存性糸球体破壊への連鎖】\n\n  メサンギウム領域の Gd-IgA1複合体\n       │\n       ├─(マンノース結合レクチン等)─→ レクチン経路活性化\n       └─(C3自発結合)──────────────→ 副経路活性化\n                                       │\n                                       ▼\n                             C3b沈着 ＆ C5転換酵素形成\n                                       │\n                        ┌──────────────┴──────────────┐\n                        ▼                               ▼\n               【C5a 局所放出】                 【C5b-9 (MAC) 局所沈着】\n                        │                               │\n         好中球・マクロファージ浸潤           メサンギウム細胞融解・アポトーシス\n         炎症性サイトカイン/ケモカイン放出   ポドサイト障害・足突起消失\n                        │                               │\n                        └──────────────┬──────────────┘\n                                       │\n                                       ▼\n                        半月体形成・分節状硬化・尿蛋白漏出`,
-        points: [
-          "生検組織におけるC3沈着陽性例、C4d沈着陽性例は腎不全進行リスクが有意に高い。",
-          "ポドサイト（足細胞）障害による尿蛋白増加がネフロン喪失を加速させる。",
-          "補体阻害は、活動性の高い炎症カスケードを遮断し組織リモデリングを抑制する。"
-        ],
-        debate: [
-          { q: "免疫抑制薬（ステロイド）との使い分け・併用価値は？", a: "ステロイドは全身性副作用（感染症・糖尿病・骨粗鬆症）が問題となります。標的特異的補体阻害は全身免疫を過度に抑制せず、腎局所の破壊シグナルを遮断します。" }
-        ]
-      },
-      {
-        id: 6, category: "領域 II: IgA腎症・最新病態", badge: "Unit 2-3",
-        title: "最新ガイドライン（KDIGO / 日本腎臓学会）と残存リスクの捉え方",
-        summary: "KDIGOガイドラインの改訂により、至適支持療法（RAS阻害薬＋SGLT2阻害薬）下でも尿蛋白≧0.5〜0.75 g/dayが持続する患者は高リスク群として早期の疾患修飾治療介入が推奨されている。",
-        visual: `【KDIGO推奨に基づくリスク層別化と治療フロー】\n\n [診断: 生検確定 IgA腎症] ──→ Oxford分類 (MEST-C) によるリスク評価\n       │\n       ▼ 【至適支持療法の導入 (3〜6ヶ月)】\n ・最大耐用量のRAS阻害薬 (ACEi/ARB)\n ・SGLT2阻害薬の併用\n ・血圧・生活習慣の徹底管理\n       │\n       ▼ 【残存リスク評価】\n ┌───────────────────────────┴───────────────────────────┐\n ▼                                                       ▼\n【低リスク群: 尿蛋白 < 0.5 g/day】          【高リスク群: 尿蛋白 ≧ 0.75-1.0 g/day】\n 支持療法を継続                                 10〜20年で末期腎不全(ESKD)リスク大\n                                                         │\n                                                         ▼\n                                            【積極的疾患修飾介入の適応】\n                                            ・補体標的薬 / 新規B細胞標的薬\n                                            ・局所ステロイド / 扁摘パルス`,
-        points: [
-          "尿蛋白低下は代替エンドポイントとして国際的に認知（surrogate endpoint）。",
-          "『eGFRの傾き（slope）』をいかに緩徐化させ、透析導入を生涯回避させるかが目標。",
-          "SGLT2阻害薬併用下でも残存する活動性炎症に対する上乗せエビデンスが重要。"
-        ],
-        debate: [
-          { q: "尿蛋白が1g未満なら経過観察でよいのではないか？", a: "最新の大規模コホートでは、尿蛋白0.5〜1.0 g/dayの群でも長期的には高い確率で透析に移行することが判明しており、より厳格な早期介入が求められています。" }
-        ]
-      },
-
-      // 領域 III: 診断鑑別・臨床マネジメント
-      {
-        id: 7, category: "領域 III: 診断鑑別・臨床マネジメント", badge: "Unit 3-1",
-        title: "TMA鑑別診断アルゴリズム（TTP / STEC-HUS / aHUS）",
-        summary: "血小板減少、破砕赤血球を伴う溶血性貧血、臓器障害（腎・脳等）を認めた際、ADAMTS13活性と便中STEC毒素を迅速測定し、48時間以内に鑑別・治療方針を確定する。",
-        visual: `【TMA鑑別診断トリアージ・フロー】\n\n   血小板減少 ＋ 微小血管障害性溶血性貧血 (破砕赤血球/LDH上昇/ハプトグロビン低下)\n       │\n       ▼\n   【直ちに ADAMTS13活性 ＆ 便中STEC-PCR/毒素 検査を提出】\n       │\n       ├──────────────┬──────────────┬──────────────┐\n       ▼              ▼              ▼              ▼\n【ADAMTS13 < 10%】  【STEC陽性】  【二次性TMA原因】 【ADAMTS13 ≧ 10% ＆ 他除外】\n       │              │              │              │\n      TTP          STEC-HUS      悪性腫瘍/自己抗体/          ▼\n (血漿交換/CAP)   (支持療法)      薬剤/移植/感染           aHUS\n                                                    (直ちにC5阻害薬開始)`,
-        points: [
-          "ADAMTS13活性 ＜ 10% はTTP（血栓性血小板減少性紫斑病）の確定診断。",
-          "aHUS診断の要件：①TMAの存在、②ADAMTS13≧10%、③STEC陰性、④明らかな二次性TMAの除外。",
-          "aHUSは除外診断であるが、検査結果待ちの間も不可逆障害を防ぐ判断スピードが命。"
-        ],
-        debate: [
-          { q: "ADAMTS13の結果が出るまで数日かかる場合の対応は？", a: "院内迅速検査または外部至急提出を行い、結果が出るまでは血漿交換を開始しつつ、ADAMTS13≧10%が判明した瞬間に速やかにC5阻害薬へ切り替えます。" }
-        ]
-      },
-      {
-        id: 8, category: "領域 III: 診断鑑別・臨床マネジメント", badge: "Unit 3-2",
-        title: "C5阻害薬使用時の髄膜炎菌感染症リスク管理と予防プロトコル",
-        summary: "末端補体（C5b-9）の遮断により、莢膜保有菌（特に髄膜炎菌: Neisseria meningitidis）に対する生体防御能が低下。ワクチン接種と抗菌薬予防投与の徹底が絶対条件。",
-        visual: `【髄膜炎菌リスク管理プロトコル】\n\n [投与決定時]\n       │\n       ├─→ ① 髄膜炎菌ワクチン接種 (4価結合型 ＋ B群ワクチン)\n       │       ※抗体産生まで約2週間を要する\n       │\n       ├─→ ② 緊急開始時は直ちに【抗菌薬の予防投与】を開始 (ペニシリン系/マクロライド系等)\n       │       ※ワクチン効果発現まで最低2週間、または投与期間中継続\n       │\n       └─→ ③ 患者教育・安全管理カードの常時携帯\n               ・発熱、激しい頭痛、悪寒、項部硬直などの初期症状出現時は\n                 夜間・休日問わず直ちに救急受診する体制を構築`,
-        points: [
-          "C5阻害薬の投与を受ける患者の髄膜炎菌感染リスクは健常人の最大1,000〜2,000倍。",
-          "ワクチン接種歴の確認および更新（ブースター接種）の徹底。",
-          "患者・家族へのレッドフラッグサイン教育と緊急受診カードの携帯義務。"
-        ],
-        debate: [
-          { q: "ワクチンを打てば抗菌薬は不要か？", a: "ワクチンに含まれない血清群や、抗体価が十分上がらない期間をカバーするため、投与開始初期の抗菌薬予防投与および継続の検討が強く推奨されます。" }
-        ]
-      },
-      {
-        id: 9, category: "領域 III: 診断鑑別・臨床マネジメント", badge: "Unit 3-3",
-        title: "腎移植領域におけるaHUS再発防止と抗体関連拒絶（AMR）",
-        summary: "aHUS既往患者の腎移植では、虚血再灌流障害や免疫抑制薬（CNI）がトリガーとなり高率にTMAが再発。また抗ドナー抗体（DSA）による補体介在性AMRに対するC5阻害の役割を考察する。",
-        visual: `【腎移植と補体活性化の病態連鎖】\n\n 移植手術 ──→ 虚血再灌流障害 ＋ CNI投与 (血管内皮傷害)\n                     │\n                     ▼\n          【補体副経路の局所過剰活性化】\n                     │\n        ┌────────────┴────────────┐\n        ▼                         ▼\n   【aHUS再発】             【抗体関連拒絶 (AMR)】\n  ・移植腎微小血栓           ・DSA結合による古典経路活性化(C4d沈着)\n  ・急速な移植腎機能廃絶     ・MACによる内皮破壊・急性機能不全\n        │                         │\n        └────────────┬────────────┘\n                     │\n                     ▼\n          【周術期・発症時C5阻害介入による移植腎救済】`,
-        points: [
-          "CFH変異患者における無治療下の腎移植後再発率は約80%に達する。",
-          "遺伝子リスクに応じた周術期予防的投与プロトコルの策定。",
-          "AMRにおける組織障害の最終実行分子であるC5b-9を阻害し、グラフト生着率を向上させる。"
-        ],
-        debate: [
-          { q: "腎移植前に遺伝子検査は必須か？", a: "変異の種類（血清蛋白型か膜結合型か）により再発リスクが劇的に異なるため、移植適応評価時の網羅的遺伝子検査が国際的に強く推奨されます。" }
-        ]
-      },
-
-      // 領域 IV: 学術ディベート・反論処理戦術
-      {
-        id: 10, category: "領域 IV: 学術ディベート・反論処理戦術", badge: "Unit 4-1",
-        title: "KOLディベート：「血漿交換（PE）継続 vs C5阻害薬早期切り替え」",
-        summary: "『まずは血漿交換で様子を見る』という医師に対し、エビデンス（不可逆的腎機能低下の進行リスク、死亡率の差）に基づき、早期切り替えの論理的必然性を提示する戦術。",
-        visual: `【PE vs C5阻害薬：エビデンス比較マトリクス】\n\n・作用機序:\n  [PE] 異常抗体/因子の希釈・一時的補充（蛇口を閉めずに水を汲み出す対症療法）\n  [C5阻害] 補体末端活性化の完全・特異的停止（破壊の元栓を締める根本遮断）\n\n・長期転帰 (無治療/PE単独 vs C5阻害薬):\n  [PE単独] 1年以内に約50〜70%が末期腎不全または死亡に至る\n  [C5阻害薬] 早期投与により80%以上の患者で腎機能改善・透析離脱を達成\n\n・臨床判断の分岐点:\n  PE開始後 48〜72時間で血小板数・LDH・クレアチニンの劇的改善がなければ直ちに切り替え`,
-        points: [
-          "PEは補体カスケードの持続的暴走（増幅ループ）を根本的に停止できない。",
-          "遅延すればするほど糸球体硬化が不可逆となり、透析離脱率が低下する。",
-          "静脈アクセス確保の合併症や血漿アレルギーリスクも考慮点。"
-        ],
-        debate: [
-          { q: "PEで血小板が少し上がってきたからこのまま続けたい。", a: "血小板の一時的上昇は補充による見かけ上の改善にすぎない場合が多く、腎微小血管での補体破壊は水面下で進行しています。腎機能（eGFR/尿量）の改善が伴っていなければ直ちに切り替えるべきです。" }
-        ]
-      },
-      {
-        id: 11, category: "領域 IV: 学術ディベート・反論処理戦術", badge: "Unit 4-2",
-        title: "KOLディベート：「IgA腎症におけるSGLT2阻害薬との差別化と上乗せ価値」",
-        summary: "『SGLT2阻害薬だけで十分蛋白尿が減っている』という反論に対し、血行動態アプローチと自己免疫・補体炎症アプローチの機序的シナジーと上乗せの必要性を説明する。",
-        visual: `【SGLT2i と 補体標的薬の相補的シナジー機構】\n\n  ┌─────────────────────────────────────────────────────────────┐\n  │ SGLT2阻害薬 (血行動態・代謝アプローチ)                      │\n  │ ・輸入細動脈収縮による糸球体過剰濾過の是正 (内圧低下)       │\n  │ ・尿細管保護・エネルギー代謝改善                            │\n  └──────────────────────────────┬──────────────────────────────┘\n                                 │ ＋\n  ┌──────────────────────────────▼──────────────────────────────┐\n  │ 補体標的薬 (疾患修飾・抗炎症アプローチ)                     │\n  │ ・Hit 4におけるメサンギウム補体活性化 (C3b/C5b-9) の直接遮断│\n  │ ・足細胞(ポドサイト)破壊・糸球体壊死の不可逆進行を停止      │\n  └─────────────────────────────────────────────────────────────┘\n                                 │\n                                 ▼\n              【eGFR低下の生涯にわたる完全抑制】`,
-        points: [
-          "SGLT2阻害薬は炎症そのものを消火する薬ではない。",
-          "活動性の高い炎症組織（MEST-CでE1やC1/C2）に対しては補体阻害による直接消火が必須。",
-          "2剤の併用こそが、ネフロン保護の最大化をもたらす。"
-        ],
-        debate: [
-          { q: "SGLT2阻害薬で尿蛋白が0.8gまで下がったから十分では？", a: "0.8g/dayの残存蛋白尿は依然として年間eGFR低下（slope）を加速させる高リスク域です。透析導入を生涯回避するためには、補体遮断によりさらに0.5g未満を目指す必要があります。" }
-        ]
-      },
-      {
-        id: 12, category: "領域 IV: 学術ディベート・反論処理戦術", badge: "Unit 4-3",
-        title: "KOLディベート：「高額薬剤に対する費用対効果・医療経済性の説得ロジック」",
-        summary: "高額な生物学的製剤に対する支払側・病院経営層・医師の心理的ハードルを克服するため、透析導入回避による生涯医療費削減とQOL向上をデータで示す論理武装。",
-        visual: `【末期腎不全（透析）vs 早期補体阻害治療の医療経済比較】\n\n・血液透析の社会的コスト:\n  - 年間医療費: 約500〜600万円/人（10年で5,000万〜6,000万円）\n  - 就労制限・生産性損失・心血管イベント合併による追加入院コスト\n  - 生涯にわたるQOLの著しい低下\n\n・早期補体阻害介入の経済的インパクト:\n  - 不可逆的な透析導入を回避し、社会復帰・就労継続を維持\n  - 適切なモニタリング下での寛解維持・投与間隔最適化による総薬剤費コントロール\n  - 包括的な医療経済評価において、生涯QOL調整生存年（QALY）の圧倒的優位性`,
-        points: [
-          "短期的な薬剤費だけでなく、長期的な透析コスト・合併症治療費との総額で比較する視点。",
-          "難病医療費助成制度や高額療養費制度による患者負担軽減の正確な情報提供。",
-          "『腎臓を救うことは、患者の人生と医療経済の双方を救うこと』という倫理的・論理的合意形成。"
-        ],
-        debate: [
-          { q: "薬価が高すぎて病院の採用委員会を通しにくい。", a: "aHUSによる急性腎不全でICU滞在・透析管理が長期化する急性期コストと、早期離脱によるDPC効率化・病床回転率向上の観点から、経営層への費用対効果説明資料を提供します。" }
-        ]
-      }
-    ];
-
-    // 最新のGeminiモデル構成（gemini-3.7-flash を最優先）
+    // gemini-3.7-flash を最優先とし、最新モデル構成へフォールバック
     const GEMINI_MODELS = [
       'gemini-3.7-flash',
       'gemini-2.5-flash',
       'gemini-2.5-pro',
       'gemini-2.0-flash'
     ];
-
-    let currentUnitId = 1;
-
-    // 初期化
-    document.addEventListener('DOMContentLoaded', () => {
-      buildMenu();
-      renderUnit(1);
-    });
-
-    function buildMenu() {
-      const container = document.getElementById('unit-menu-container');
-      const mobileSelect = document.getElementById('mobile-unit-select');
-      container.innerHTML = '';
-      mobileSelect.innerHTML = '';
-
-      let currentCategory = '';
-      UNITS_DATA.forEach(unit => {
-        // カテゴリヘッダー
-        if (unit.category !== currentCategory) {
-          currentCategory = unit.category;
-          const catHeader = document.createElement('div');
-          catHeader.className = 'text-[11px] font-bold text-slate-400 uppercase tracking-wider px-2 pt-2';
-          catHeader.innerText = currentCategory;
-          container.appendChild(catHeader);
-        }
-
-        // デスクトップメニューボタン
-        const btn = document.createElement('button');
-        btn.id = `unit-btn-${unit.id}`;
-        btn.onclick = () => selectUnit(unit.id);
-        btn.className = `w-full text-left p-2.5 rounded-lg text-xs flex items-center justify-between transition ${
-          unit.id === 1 ? 'bg-indigo-600/30 border border-indigo-500/50 text-indigo-100 font-semibold' : 'text-slate-300 hover:bg-slate-800'
-        }`;
-        btn.innerHTML = `
-          <div class="truncate pr-2">
-            <span class="text-[10px] font-bold text-indigo-400 mr-1">${unit.badge}</span>
-            <span>${unit.title}</span>
-          </div>
-          <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
-        `;
-        container.appendChild(btn);
-
-        // モバイルセレクト
-        const opt = document.createElement('option');
-        opt.value = unit.id;
-        opt.innerText = `${unit.badge}: ${unit.title}`;
-        mobileSelect.appendChild(opt);
-      });
-    }
-
-    function selectUnit(id) {
-      currentUnitId = id;
-      document.querySelectorAll('[id^="unit-btn-"]').forEach(btn => {
-        btn.className = 'w-full text-left p-2.5 rounded-lg text-xs flex items-center justify-between transition text-slate-300 hover:bg-slate-800';
-      });
-      const activeBtn = document.getElementById(`unit-btn-${id}`);
-      if (activeBtn) {
-        activeBtn.className = 'w-full text-left p-2.5 rounded-lg text-xs flex items-center justify-between transition bg-indigo-600/30 border border-indigo-500/50 text-indigo-100 font-semibold';
-      }
-      document.getElementById('mobile-unit-select').value = id;
-      renderUnit(id);
-    }
-
-    function renderUnit(id) {
-      const unit = UNITS_DATA.find(u => u.id === id);
-      if (!unit) return;
-
-      document.getElementById('content-unit-badge').innerText = unit.badge;
-      document.getElementById('content-category-badge').innerText = unit.category;
-      document.getElementById('content-unit-title').innerText = unit.title;
-
-      const body = document.getElementById('content-unit-body');
-      body.innerHTML = `
-        <div class="bg-slate-900/80 p-4 rounded-lg border border-slate-800">
-          <h4 class="font-bold text-slate-200 mb-1 flex items-center gap-1.5">
-            <i class="fa-solid fa-book-bookmark text-indigo-400"></i>
-            <span>Unit 概要と臨床的本質</span>
-          </h4>
-          <p class="text-slate-300 leading-relaxed">${unit.summary}</p>
-        </div>
-
-        <div class="bg-slate-950 p-4 rounded-lg border border-slate-800 space-y-2">
-          <div class="flex items-center justify-between">
-            <h4 class="font-bold text-cyan-300 flex items-center gap-2">
-              <i class="fa-solid fa-diagram-project"></i>
-              <span>臨床概念ビジュアル図解</span>
-            </h4>
-            <button onclick="openVisualModal()" class="text-xs text-cyan-400 hover:underline">拡大表示</button>
-          </div>
-          <div class="p-3 bg-slate-900 rounded border border-slate-800 text-xs text-cyan-200 font-mono whitespace-pre-wrap leading-relaxed overflow-x-auto">
-${unit.visual}
-          </div>
-        </div>
-
-        <div class="space-y-2">
-          <h4 class="font-bold text-slate-200 flex items-center gap-2">
-            <i class="fa-solid fa-list-check text-indigo-400"></i>
-            <span>MRが習得すべき学術重要ポイント</span>
-          </h4>
-          <ul class="list-disc pl-5 space-y-1.5 text-slate-300">
-            ${unit.points.map(p => `<li>${p}</li>`).join('')}
-          </ul>
-        </div>
-
-        <div class="space-y-3 pt-2">
-          <h4 class="font-bold text-slate-200 flex items-center gap-2">
-            <i class="fa-solid fa-comments-dollar text-amber-400"></i>
-            <span>KOL・専門医との学術ディベート攻略戦術</span>
-          </h4>
-          <div class="space-y-2.5">
-            ${unit.debate.map(d => `
-              <div class="bg-slate-900/90 border border-slate-800 rounded-lg p-3.5 space-y-2">
-                <div class="flex items-start gap-2 text-rose-300 font-medium">
-                  <span class="bg-rose-950/80 px-1.5 py-0.5 rounded text-[10px] border border-rose-800 shrink-0">医師の疑問・反論</span>
-                  <span>${d.q}</span>
-                </div>
-                <div class="flex items-start gap-2 text-emerald-300 text-xs pl-2 border-l-2 border-emerald-500">
-                  <span class="bg-emerald-950/80 px-1.5 py-0.5 rounded text-[10px] border border-emerald-800 shrink-0">学術回答ロジック</span>
-                  <span class="text-slate-200">${d.a}</span>
-                </div>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-      `;
-    }
-
-    // モーダル制御
-    function openVisualModal() {
-      const unit = UNITS_DATA.find(u => u.id === currentUnitId);
-      if (!unit) return;
-      document.getElementById('visual-modal-title').innerHTML = `<i class="fa-solid fa-diagram-project mr-2"></i>${unit.badge} 図解：${unit.title}`;
-      document.getElementById('visual-modal-content').innerText = unit.visual;
-      document.getElementById('visual-modal').classList.remove('hidden');
-    }
-
-    function closeVisualModal() {
-      document.getElementById('visual-modal').classList.add('hidden');
-    }
 
     function getApiKey() {
       return localStorage.getItem('alexion_gemini_api_key') || '';
@@ -543,14 +213,24 @@ ${unit.visual}
       document.getElementById('chat-input').focus();
     }
 
-    function askAboutCurrentUnit() {
-      const unit = UNITS_DATA.find(u => u.id === currentUnitId);
-      if (!unit) return;
-      toggleAiDrawer();
-      setQuery(`「${unit.badge} ${unit.title}」について、KOLとのディベートで勝つための学術的論点と最新エビデンスを深掘り解説してください。`);
+    function selectUnit(id) {
+      const titles = [
+        "aHUS病態とC5阻害薬の薬理学的機序",
+        "IgA腎症の最新病態（4-Hit）と治療介入",
+        "TMA鑑別診断アルゴリズム（TTP / STEC-HUS / aHUS）",
+        "KOL・専門医との学術ディベート戦術と反論処理"
+      ];
+      document.getElementById('content-unit-badge').innerText = `Unit 1-${id}`;
+      document.getElementById('content-unit-title').innerText = titles[id - 1];
     }
 
-    // Gemini API 呼び出し（最新 v1beta・Gemini 3.7 Flash 最優先）
+    function askAboutCurrentUnit() {
+      const title = document.getElementById('content-unit-title').innerText;
+      toggleAiDrawer();
+      setQuery(`「${title}」について、MR活動で必須となる学術的ポイントと医師からの質問対応ロジックを解説してください。`);
+    }
+
+    // Gemini API 呼び出し
     async function callGemini(prompt, apiKey) {
       let lastError = null;
       for (const model of GEMINI_MODELS) {
@@ -596,14 +276,14 @@ ${unit.visual}
 
       const msgContainer = document.getElementById('chat-messages');
 
-      // ユーザーメッセージ
+      // ユーザーメッセージ表示
       const userDiv = document.createElement('div');
       userDiv.className = 'bg-slate-800 text-slate-100 p-3 rounded-lg border border-slate-700 ml-6';
       userDiv.innerText = text;
       msgContainer.appendChild(userDiv);
       input.value = '';
 
-      // ローディング
+      // ローディング表示
       const loadingDiv = document.createElement('div');
       loadingDiv.className = 'bg-indigo-950/40 border border-indigo-900/50 p-3 rounded-lg text-indigo-300 mr-6 flex items-center space-x-2';
       loadingDiv.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Gemini 3.7 Flashで学術回答を作成中...</span>';
