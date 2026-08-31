@@ -22,7 +22,7 @@
       <div class="w-8 h-8 rounded bg-indigo-600 flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/30">A</div>
       <div>
         <h1 class="text-sm font-bold tracking-wider text-slate-100 uppercase">ALEXION MASTER ENCYCLOPEDIA</h1>
-        <p class="text-xs text-slate-400">Visual & AI Edition (Gemini 3.7 Flash Powered)</p>
+        <p class="text-xs text-slate-400">Visual & AI Edition (aHUS / IgA腎症)</p>
       </div>
     </div>
     <div class="flex items-center space-x-2">
@@ -167,9 +167,8 @@
   </div>
 
   <script>
-    // gemini-3.7-flash を最優先とし、順次最新モデルへフォールバック
+    // 最新のGeminiモデル優先順フォールバック一覧
     const GEMINI_MODELS = [
-      'gemini-3.7-flash',
       'gemini-2.5-flash',
       'gemini-2.5-pro',
       'gemini-2.0-flash'
@@ -230,7 +229,7 @@
       setQuery(`「${title}」について、MR活動で必須となる学術的ポイントと医師からの質問対応ロジックを解説してください。`);
     }
 
-    // Gemini API 呼び出し
+    // Gemini API 呼び出し（最新 v1beta エンドポイント）
     async function callGemini(prompt, apiKey) {
       let lastError = null;
       for (const model of GEMINI_MODELS) {
@@ -241,7 +240,7 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               contents: [{ parts: [{ text: prompt }] }],
-              generationConfig: { temperature: 0.2 }
+              generationConfig: { temperature: 0.3 }
             })
           });
 
@@ -286,7 +285,7 @@
       // ローディング表示
       const loadingDiv = document.createElement('div');
       loadingDiv.className = 'bg-indigo-950/40 border border-indigo-900/50 p-3 rounded-lg text-indigo-300 mr-6 flex items-center space-x-2';
-      loadingDiv.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Gemini 3.7 Flashで学術回答を作成中...</span>';
+      loadingDiv.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>学術データを検索・回答作成中...</span>';
       msgContainer.appendChild(loadingDiv);
       msgContainer.scrollTop = msgContainer.scrollHeight;
 
@@ -299,7 +298,7 @@
         aiDiv.innerHTML = `
           <div class="flex items-center justify-between text-[10px] text-indigo-400 border-b border-indigo-900/50 pb-1">
             <span><i class="fa-solid fa-sparkles mr-1"></i>Gemini 学術アドバイザー</span>
-            <span class="bg-indigo-900/50 px-1.5 py-0.5 rounded text-[9px] text-indigo-300 font-mono">完了 (${result.model})</span>
+            <span class="bg-indigo-900/50 px-1.5 py-0.5 rounded text-[9px] text-indigo-300">完了 (${result.model})</span>
           </div>
           <div class="whitespace-pre-wrap leading-relaxed">${result.text}</div>
         `;
@@ -308,7 +307,7 @@
         loadingDiv.remove();
         const errDiv = document.createElement('div');
         errDiv.className = 'bg-rose-950/50 border border-rose-900/50 p-3 rounded-lg text-rose-300 mr-4 text-xs';
-        errDiv.innerText = `全モデルへの接続試行が失敗しました。\n\nエラー詳細: ${err.message}\n※APIキーの入力内容をご確認ください。`;
+        errDiv.innerText = `全モデルへの接続試行が失敗しました。\n\nエラー詳細: ${err.message}\n※APIキーの入力内容（空白の混入など）をご確認ください。`;
         msgContainer.appendChild(errDiv);
       }
 
